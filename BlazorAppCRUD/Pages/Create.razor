@@ -11,8 +11,13 @@
 
     <label for="state">State:</label>
     <InputText id="state" @bind-Value="order.State" class="form-control" required />
-    <label>Add Window</label><br />
-    <button type="button" @onclick="AddWindow">Add Window</button>
+    @if (!string.IsNullOrEmpty(order.OrderName) && !string.IsNullOrEmpty(order.State))
+  {
+      <label>Add Window</label>
+
+      <br />
+      <button type="button" @onclick="AddWindow">Add Window</button>
+  }
     <div id="windowsContainer">
         @foreach (var window in order.Windows)
         {
