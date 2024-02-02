@@ -2610,11 +2610,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\conta\\Desktop\\BlazorAppCRUD\\BlazorAppCRUD\\BlazorAppCRUD.csproj",
+      "projectUniqueName": "C:\\Users\\conta\\Desktop\\BlazorAppCRUD 1\\BlazorAppCRUD\\BlazorAppCRUD\\BlazorAppCRUD.csproj",
       "projectName": "BlazorAppCRUD",
-      "projectPath": "C:\\Users\\conta\\Desktop\\BlazorAppCRUD\\BlazorAppCRUD\\BlazorAppCRUD.csproj",
+      "projectPath": "C:\\Users\\conta\\Desktop\\BlazorAppCRUD 1\\BlazorAppCRUD\\BlazorAppCRUD\\BlazorAppCRUD.csproj",
       "packagesPath": "C:\\Users\\conta\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\conta\\Desktop\\BlazorAppCRUD\\BlazorAppCRUD\\obj\\",
+      "outputPath": "C:\\Users\\conta\\Desktop\\BlazorAppCRUD 1\\BlazorAppCRUD\\BlazorAppCRUD\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\conta\\AppData\\Roaming\\NuGet\\NuGet.Config",

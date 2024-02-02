@@ -1,0 +1,120 @@
+﻿@page "/view"
+
+<PageTitle>Weather forecast</PageTitle>
+
+@using BlazorAppCRUD.Data
+@inject Orderservices _orderservices
+
+<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from a service.</p>
+
+<NavLink class="nav-link" href="/Create">
+    <span class="oi oi-plus" aria-hidden="true">Add New</span>
+
+</NavLink>
+@if (OObj == null && Wobj == null && Sobj == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>OrdeID</th>
+                <th>OrderName</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forecast in OObj)
+            {
+                <tr>
+                    <td>@forecast.OrderId</td>
+                    <td>@forecast.OrderName</td>
+                    <td>@forecast.State</td>
+                    <td>
+                        <a class="nav-link" href="create/@forecast.OrderId">
+                            <span class="oi oi-pencil" aria-hidden="true">Edit</span>
+                        </a>
+                        <a class="nav-link" href="Delete/@forecast.OrderId">
+                            <span class="oi oi-trash" aria-hidden="true">Delete</span>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <thead>
+            <tr>
+                <th>WindowId</th>
+                <th>WindowsName</th>
+                <th>QuantityOfWindows</th>
+                <th>TotalSubElements</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forecast in Wobj)
+            {
+                <tr>
+                    <td>@forecast.WindowId</td>
+                    <td>@forecast.WindowName</td>
+                    <td>@forecast.QuantityOfWindows</td>
+                    <td>@forecast.TotalSubElements</td>
+                    <td>
+                        <a class="nav-link" href="create/@forecast.WindowId">
+                            <span class="oi oi-pencil" aria-hidden="true">Edit</span>
+                        </a>
+                        <a class="nav-link" href="Delete/@forecast.WindowId">
+                            <span class="oi oi-trash" aria-hidden="true">Delete</span>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <thead>
+            <tr>
+                <th>SubElementId</th>
+                <th>Element</th>
+                <th>Type</th>
+                <th>Height</th>
+                <th>Width</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forecast in Sobj)
+            {
+
+                <tr>
+                    <th>@forecast.SubElementId</th>
+                    <th>@forecast.Element</th>
+                    <th>@forecast.Type</th>
+                    <th>@forecast.Height</th>
+                    <th>@forecast.Width</th>
+                    <td>
+                        <a class="nav-link" href="create/@forecast.SubElementId">
+                            <span class="oi oi-pencil" aria-hidden="true">Edit</span>
+                        </a>
+                        <a class="nav-link" href="Delete/@forecast.SubElementId">
+                            <span class="oi oi-trash" aria-hidden="true">Delete</span>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@code {
+    List<Order> OObj;
+    List<Window> Wobj;
+    List<SubElement> Sobj;
+
+    protected override async Task OnInitializedAsync()
+    {
+        OObj = await _orderservices.GetOrder();
+        Wobj = await _orderservices.GetWindows();
+        Sobj = await _orderservices.GetSubElement();
+    }
+}

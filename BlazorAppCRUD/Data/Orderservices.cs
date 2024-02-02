@@ -153,7 +153,7 @@ namespace BlazorAppCRUD.Data
             await _appDBContext.SaveChangesAsync();
             return true;
         }
-        public async Task<List<OrderDTO>> GetAllOrders()
+        public async Task<List<Order>> GetAllOrders()
         {
             var orders = await _appDBContext.order
                 .Include(o => o.Windows)
@@ -161,12 +161,12 @@ namespace BlazorAppCRUD.Data
                 .ToListAsync();
 
             // Map entities to DTOs
-            var orderDTOs = orders.Select(order => new OrderDTO
+            var order = orders.Select(order => new Order
             {
                 OrderId = order.OrderId,
                 OrderName = order.OrderName,
                 State = order.State,
-                windows = order.Windows.Select(window => new Window
+                Windows = order.Windows.Select(window => new Window
                 {
                     WindowId = window.WindowId,
                     WindowName = window.WindowName,
@@ -183,9 +183,21 @@ namespace BlazorAppCRUD.Data
                 }).ToList()
             }).ToList();
 
-            return orderDTOs;
+            return order;
         }
-        public async Task<OrderDTO> GetOrderDetailsById(int orderId)
+        public async Task<List<Order>> GetOrder()
+        {
+            return await _appDBContext.order.ToListAsync();
+        }
+        public async Task<List<Window>> GetWindows()
+        {
+            return await _appDBContext.window.ToListAsync();
+        }
+        public async Task<List<SubElement>> GetSubElement()
+        {
+            return await _appDBContext.subelement.ToListAsync();
+        }
+        public async Task<Order> GetOrderDetailsById(int orderId)
         {
             var order = await _appDBContext.order
                 .Where(o => o.OrderId == orderId)
@@ -200,12 +212,12 @@ namespace BlazorAppCRUD.Data
             }
 
             // Map the entity to a DTO
-            var orderDTO = new OrderDTO
+            var orders = new Order
             {
                 OrderId = order.OrderId,
                 OrderName = order.OrderName,
                 State = order.State,
-                windows = order.Windows.Select(window => new Window
+                Windows = order.Windows.Select(window => new Window
                 {
                     WindowId = window.WindowId,
                     WindowName = window.WindowName,
@@ -222,7 +234,7 @@ namespace BlazorAppCRUD.Data
                 }).ToList()
             };
 
-            return orderDTO;
+            return orders;
         }
         public async Task<bool> DeleteOrder(int orderId)
         {
@@ -245,6 +257,20 @@ namespace BlazorAppCRUD.Data
 
             return true;
         }
-
+        public async Task<Order> GetOrder(int OrderId)
+        {
+            Order order = await _appDBContext.order.FirstOrDefaultAsync(c => c.OrderId.Equals(OrderId));
+            return order;
+        }
+        public async Task<Window> GetWindows(int WindowId)
+        {
+            Window  windows = await _appDBContext.window.FirstOrDefaultAsync(c => c.WindowId.Equals(WindowId));
+            return windows;
+        }
+        public async Task<SubElement> GetSubElement(int SubElementId)
+        {
+            SubElement SubElement = await _appDBContext.subelement.FirstOrDefaultAsync(c => c.SubElementId.Equals(SubElementId));
+            return SubElement;
+        }
     }
 }

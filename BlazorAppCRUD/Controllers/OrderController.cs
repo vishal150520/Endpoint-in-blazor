@@ -52,7 +52,7 @@ namespace BlazorAppCRUD.Controllers
             try
             {
                 var result = await _orderservices.GetOrderDetailsById(OrderId);
-                return Ok(new ApiResponse<OrderDTO>(result, result != null ? "GetOrderDetailsById" : "Problem in fetching GetOrderDetailsById"));
+                return Ok(new ApiResponse<Order>(result, result != null ? "GetOrderDetailsById" : "Problem in fetching GetOrderDetailsById"));
 
             }
             catch (Exception ex)
@@ -68,7 +68,7 @@ namespace BlazorAppCRUD.Controllers
             try
             {
                 var result = await _orderservices.GetAllOrders();
-                return Ok(new ApiResponse<List<OrderDTO>>((int)StatusCodes.Status200OK, true, "GetAll Details Order", result));
+                return Ok(new ApiResponse<List<Order>>((int)StatusCodes.Status200OK, true, "GetAll Details Order", result));
             }
             catch (Exception ex)
             {

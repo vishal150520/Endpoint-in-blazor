@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "z3H7cuXoXOSjLAwynv7hkzjN+BFd/qgvZOokoiu/vzivjXUN4OYZBBE7tnlBr63qUGNMw2uIdpGbejiyS7ubMQ==",
+  "dgSpecHash": "3ZheAW0JTZwnsxlYjOny8WIGr5Gt5gAqvwbP0w+QMYZp7EoOgstMH4m6l213N5r663vrUw0Qt3GTF5hFefqk6Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\conta\\Desktop\\BlazorAppCRUD\\BlazorAppCRUD\\BlazorAppCRUD.csproj",
+  "projectFilePath": "C:\\Users\\conta\\Desktop\\BlazorAppCRUD 1\\BlazorAppCRUD\\BlazorAppCRUD\\BlazorAppCRUD.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\conta\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\conta\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",

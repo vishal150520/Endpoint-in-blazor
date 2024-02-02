@@ -1,0 +1,78 @@
+﻿@page "/delete/{orderId:int}"
+<h3>Delete Order</h3>
+@using BlazorAppCRUD.Data
+@inject Orderservices _orderservices
+@inject NavigationManager NavigationManager
+<EditForm Model="@order" OnValidSubmit="DeleteOrder">
+    <DataAnnotationsValidator />
+
+    <label for="orderName">Order Name:</label>
+    <InputText id="orderName" @bind-Value="order.OrderName" class="form-control" readonly />
+
+    <label for="state">State:</label>
+    <InputText id="state" @bind-Value="order.State" class="form-control" readonly />
+
+    <h4>Windows</h4>
+    <div id="windowsContainer">
+        @foreach (var window in order.Windows)
+        {
+            <div>
+                <label for="windowName">Window Name:</label>
+                <InputText @bind-Value="window.WindowName" class="form-control" readonly />
+
+                <label for="quantityOfWindows">Quantity of Windows:</label>
+                <InputNumber @bind-Value="window.QuantityOfWindows" class="form-control" readonly />
+
+                <label for="totalSubElements">TotalSubElements:</label>
+                <InputNumber @bind-Value="window.TotalSubElements" class="form-control" readonly />
+
+                <div>
+                    @foreach (var subElement in window.SubElements)
+                    {
+                        <div>
+                            <label for="element">Element:</label>
+                            <InputNumber @bind-Value="subElement.Element" class="form-control" readonly />
+
+                            <label for="type">Type:</label>
+                            <InputText @bind-Value="subElement.Type" class="form-control" readonly />
+
+                            <label for="width">Width:</label>
+                            <InputNumber @bind-Value="subElement.Width" class="form-control" readonly />
+
+                            <label for="height">Height:</label>
+                            <InputNumber @bind-Value="subElement.Height" class="form-control" readonly />
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+
+    <button type="submit">Delete Order</button>
+</EditForm>
+
+@code {
+    private Order order = new Order();
+
+    [Parameter]
+    public int orderId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Fetch existing order details based on orderId
+        order = await _orderservices.GetOrderDetailsById(orderId);
+    }
+
+    private async void DeleteOrder()
+    {
+        try
+        {
+            await _orderservices.DeleteOrder(order.OrderId);
+            NavigationManager.NavigateTo("view");
+        }
+        catch(Exception ex)
+        {
+            // Handle exception
+        }
+    }
+}

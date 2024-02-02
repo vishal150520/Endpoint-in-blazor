@@ -1,0 +1,95 @@
+﻿@page "/create/{orderId?}"
+<h3>Create Order</h3>
+@using BlazorAppCRUD.Data
+@inject Orderservices _orderservices
+@inject NavigationManager NavigationManager
+<EditForm Model="@order" OnValidSubmit="CreateOrUpdateOrder">
+    <DataAnnotationsValidator />
+
+    <label for="orderName">Order Name:</label>
+    <InputText id="orderName" @bind-Value="order.OrderName" class="form-control" required />
+
+    <label for="state">State:</label>
+    <InputText id="state" @bind-Value="order.State" class="form-control" required />
+    <label>Add Window</label><br />
+    <button type="button" @onclick="AddWindow">Add Window</button>
+    <div id="windowsContainer">
+        @foreach (var window in order.Windows)
+        {
+            <div>
+                <label for="windowName">Window Name:</label>
+                <InputText @bind-Value="window.WindowName" class="form-control" required />
+
+                <label for="quantityOfWindows">Quantity of Windows:</label>
+                <InputNumber @bind-Value="window.QuantityOfWindows" class="form-control" required />
+
+                <label for="totalSubElements">TotalSubElements:</label>
+                <InputNumber @bind-Value="window.TotalSubElements" class="form-control" required />
+
+                <button type="button" @onclick="() => AddSubElement(window)">Add Sub-Element</button>
+
+                <div>
+                    @foreach (var subElement in window.SubElements)
+                    {
+                        <div>
+                            <label for="element">Element:</label>
+                            <InputNumber @bind-Value="subElement.Element" class="form-control" required />
+
+                            <label for="type">Type:</label>
+                            <InputText @bind-Value="subElement.Type" class="form-control" required />
+
+                            <label for="width">Width:</label>
+                            <InputNumber @bind-Value="subElement.Width" class="form-control" required />
+
+                            <label for="height">Height:</label>
+                            <InputNumber @bind-Value="subElement.Height" class="form-control" required />
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+
+   
+    <br />
+    <button type="submit">@(order.OrderId == 0 ? "Create Order" : "Update Order")</button>
+</EditForm>
+
+@code {
+    private Order order = new Order();
+
+    [Parameter]
+    public string orderId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (!string.IsNullOrEmpty(orderId))
+        {
+            // Fetch existing order details based on orderId
+            order = await _orderservices.GetOrder(int.Parse(orderId));
+        }
+    }
+
+    private void AddWindow()
+    {
+        order.Windows.Add(new Window());
+    }
+
+    private void AddSubElement(Window window)
+    {
+        window.SubElements.Add(new SubElement());
+    }
+
+    private async void CreateOrUpdateOrder()
+    {
+        if (order.OrderId == 0)
+        {
+           await _orderservices.CreateOrder(order);
+        }
+        else
+        {
+           await _orderservices.UpdateOrder(order);
+        }
+        NavigationManager.NavigateTo("view");
+    }
+}
