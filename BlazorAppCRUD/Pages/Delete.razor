@@ -68,7 +68,7 @@
         try
         {
             await _orderservices.DeleteOrder(order.OrderId);
-            NavigationManager.NavigateTo("view");
+            NavigationManager.NavigateTo("/");
         }
         catch(Exception ex)
         {
